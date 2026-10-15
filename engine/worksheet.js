@@ -54,7 +54,7 @@
     var pick = function (o, keys) { var out = {}; keys.forEach(function (k) { if (o[k] !== undefined) out[k] = o[k]; }); return out; };
     var stripQ = function (q) { var o = pick(q, KEEP_Q); if (q.parts) o.parts = q.parts.map(function (p) { return pick(p, KEEP_P); }); else { var single = pick(q, KEEP_P); Object.keys(single).forEach(function (k) { if (o[k] === undefined) o[k] = single[k]; }); } return o; };
     var data = { code: SHEET.code, year: SHEET.year, span: SHEET.span, strand: SHEET.strand, title: SHEET.title, calculator: SHEET.calculator, quiz: SHEET.quiz, keywords: SHEET.keywords, public: true, sections: SHEET.sections.map(function (s) {
-      var o = { title: s.title, mode: s.mode, level: s.level, hint: s.hint, watch: s.watch, extension: s.extension, answerCols: s.answerCols, example: s.example };
+      var o = { title: s.title, mode: s.mode, level: s.level, hint: s.hint, watch: s.watch, extension: s.extension, answerCols: s.answerCols, example: s.example, work: s.work };
       if (s.questions) o.questions = s.questions.map(stripQ); if (s.v1) o.v1 = s.v1.map(stripQ); if (s.v2) o.v2 = s.v2.map(stripQ);
       return o;
     }) };
@@ -67,7 +67,7 @@
   var MM = 3.7795;   // pixels in a millimetre
   // Working space (?layout=space): how much room a student needs depends on the kind of question. A short-answer part
   // (mode 'sheet') gets 12 mm, a worked part (mode 'book') 20 mm, a question on its own (a word problem) 30 mm. A sheet
-  // can set its own figure with  work: 25  on a question (millimetres, for every part of it). The boxes are ruled with a
+  // can set its own figure with  work: 25  on a question (millimetres, for every part of it), or a section can set one for all its questions. The boxes are ruled with a
   // faint line every 8 mm. SCALE shrinks everything once (to 0.8) if the last page would otherwise be nearly empty.
   var SPACE_MM = { sheet: 12, book: 20, single: 30 }, SCALE = 1, RULE_MM = 8;
   var here = document.currentScript.src.replace(/[^\/]*$/, '');
@@ -222,7 +222,7 @@
         var words = p.q ? '<span class="p-t">' + fmt(p.q) + (q.lead ? (q.lead.length > 1 ? '<span class="p-lead">' + fmt(q.lead) + '</span>' : ' ' + esc(q.lead)) : '') + '</span>' : '';
         var line = section.mode === 'sheet' && !q.noBlank && !SPACE ? '<span class="blank"></span>' : '';
         // In the working-space layout a part that is a drawing to complete (a grid, a table) keeps its blank drawing; every other part gets a working box
-        var box = SPACE && !(q.noBlank && (p.img || p.table)) ? spaceBox(q.work || SPACE_MM[section.mode === 'sheet' ? 'sheet' : 'book']) : '';
+        var box = SPACE && !(q.noBlank && (p.img || p.table)) ? spaceBox(q.work || section.work || SPACE_MM[section.mode === 'sheet' ? 'sheet' : 'book']) : '';
         // With a drawing, the words and the answer line sit under the drawing
         if (p.img || p.table) return '<li class="has-fig">' + label + '<span class="fig-col">' + (p.above && words ? '<span class="fig-line">' + words + '</span>' : '') + (p.table ? tableHtml(p.table) : '') + (p.img ? figHtml(p.img, p.scale || q.scale, p.room) : '') + (!p.above && (words || line) ? '<span class="fig-line">' + words + line + '</span>' : '') + box + '</span></li>';
         return '<li' + (box ? ' class="spaced"' : '') + '>' + label + words + line + box + '</li>';
@@ -242,7 +242,7 @@
       body = '<div class="q-side">' + body + figHtml(q.img, q.scale) + '</div>';
     }
     // A question on its own (no parts) gets one working box in the working-space layout
-    if (SPACE && !ANSWERS && !q.parts) body += spaceBox(q.work || SPACE_MM.single).replace('class="space"', 'class="space is-q"');
+    if (SPACE && !ANSWERS && !q.parts) body += spaceBox(q.work || section.work || SPACE_MM.single).replace('class="space"', 'class="space is-q"');
     return '<div class="q"><span class="q-n">' + n + '.</span><div class="q-main">' + body + '</div></div>';
   }
 
