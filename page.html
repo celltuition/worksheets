@@ -48,7 +48,7 @@
   <div class="bar">
     <div class="group"><b>Version</b><span class="seg" id="ver"><button data-v="1" class="on">1</button><button data-v="2">2</button><button data-v="">Both</button></span></div>
     <div class="group"><b>Layout</b><span class="seg" id="lay"><button data-l="" class="on">Compact (fewer pages)</button><button data-l="space">With working space</button></span></div>
-    <label class="sw"><input type="checkbox" id="ex" checked> Worked examples page</label>
+    <label class="sw"><input type="checkbox" id="ex"> Add a worked examples page</label>
     <label class="sw"><input type="checkbox" id="year"> Show year level</label>
     <div class="actions">
       <button class="btn" onclick="document.getElementById('sheet').contentWindow.print()">Print</button>
@@ -62,8 +62,8 @@
 </div>
 <script>
   var name = (/[?&]sheet=([^&]+)/.exec(location.search) || [])[1] || 'year-10-number-adding-and-subtracting-fractions';
-  var state = { v: '1', l: '', year: false, ex: true }, frame = document.getElementById('sheet');
-  function src() { var q = ['x=1']; if (state.v) q.push('v=' + state.v); if (state.l) q.push('layout=' + state.l); if (state.year) q.push('year=1'); if (!state.ex) q.push('examples=0'); return 'sheets/' + name + '.html?' + q.join('&'); }
+  var state = { v: '1', l: '', year: false, ex: false }, frame = document.getElementById('sheet');
+  function src() { var q = ['x=1']; if (state.v) q.push('v=' + state.v); if (state.l) q.push('layout=' + state.l); if (state.year) q.push('year=1'); if (state.ex) q.push('examples=1'); return 'sheets/' + name + '.html?' + q.join('&'); }
   document.getElementById('ex').onchange = function () { state.ex = this.checked; reload(); };
   function reload() { frame.src = src(); }
   function describe() {
@@ -74,7 +74,7 @@
     var pages = (d.documentElement.getAttribute('data-pages') || '').split('+')[0];
     document.getElementById('chips').innerHTML = [span, S.strand, S.calculator ? 'Calculator' : 'No calculator', '2 versions', pages + ' pages per version', 'Free to print'].map(function (c) { return '<span class="chip">' + c + '</span>'; }).join('');
     var yearsText = S.span ? 'Year ' + S.span[0] + ' and Year ' + S.span[1] : S.year, hasEx = S.sections.some(function (s) { return s.example; });
-    document.getElementById('intro').textContent = 'A free, printable ' + S.strand.toLowerCase() + ' worksheet on ' + S.title.replace(/^Linear Graphs \d+: /, '').toLowerCase() + ' for ' + yearsText + ' students, written for the New Zealand curriculum. It works through ' + secs.length + ' sections in rising difficulty (' + secs.join('; ').toLowerCase() + '), each introduced by a short reminder of the method, and ends with an extension section for students who finish early. Two versions with different numbers come in the same file' + (hasEx ? ', with a page of worked examples to read first' : '') + '. Print it as it is, or choose the layout with ruled space for working.';
+    document.getElementById('intro').textContent = 'A free, printable ' + S.strand.toLowerCase() + ' worksheet on ' + S.title.replace(/^Linear Graphs \d+: /, '').toLowerCase() + ' for ' + yearsText + ' students, written for the New Zealand curriculum. It works through ' + secs.length + ' sections in rising difficulty (' + secs.join('; ').toLowerCase() + '), each introduced by a short reminder of the method, and ends with an extension section for students who finish early. Two versions with different numbers come in the same file' + (hasEx ? ', and a page of worked examples can be added at the front' : '') + '. Print it as it is, or choose the layout with ruled space for working.';
     var m = document.querySelector('meta[name="description"]'); if (m) m.setAttribute('content', document.getElementById('intro').textContent.slice(0, 158));
     document.getElementById('fill').textContent = '';
     document.getElementById('pdf').href = 'pdf/' + name + '.pdf';

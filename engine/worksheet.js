@@ -44,8 +44,8 @@
   var SPACE = /[?&]layout=space/.test(location.search) && !ANSWERS, SHOW_YEAR = /[?&]year=1/.test(location.search), ONLY = (/[?&]v=([12])/.exec(location.search) || [])[1];
   var SHOW_REO = /[?&]reo=1/.test(location.search);   // preview only: print the te reo Māori proposals that have not been checked yet
   // A page of worked examples (one per section, written in the sheet file as  example: <part>  in the section's options) is
-  // printed first unless the address says ?examples=0
-  var EXAMPLES = !/[?&]examples=0/.test(location.search) && !ANSWERS;
+  // printed first only when the address says ?examples=1 (the viewer adds it when its box is ticked)
+  var EXAMPLES = /[?&]examples=1/.test(location.search) && !ANSWERS;   // the worked examples page prints only when asked for (?examples=1): Marcel, 15 Oct 2026
   // ?strip=1 (used by tools/publish.ps1): instead of printing the sheet, write out its data with every answer, working and
   // answer drawing removed, so the copy published on the website carries the questions only. The worked examples keep theirs.
   if (/[?&]strip=1/.test(location.search)) {
