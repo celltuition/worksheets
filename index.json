@@ -1,6 +1,6 @@
 {
     "built":  "2026-10-15",
-    "count":  215,
+    "count":  216,
     "sheets":  [
                    {
                        "file":  "year-6-number-place-value-in-large-numbers",
@@ -2902,6 +2902,24 @@
                                         "Bar graphs",
                                         "Histograms",
                                         "Time-series graphs",
+                                        "Extension"
+                                    ],
+                       "calculator":  false
+                   },
+                   {
+                       "file":  "year-9-statistics-scatter-plots",
+                       "code":  "Y9-STA-W04",
+                       "title":  "Scatter Plots",
+                       "strand":  "Statistics",
+                       "year":  9,
+                       "years":  [
+                                     9
+                                 ],
+                       "sections":  [
+                                        "Explanatory and response variables",
+                                        "Reading a scatter plot",
+                                        "Describing the relationship",
+                                        "Predicting from a line of best fit",
                                         "Extension"
                                     ],
                        "calculator":  false
