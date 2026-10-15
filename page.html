@@ -78,7 +78,7 @@
     var m = document.querySelector('meta[name="description"]'); if (m) m.setAttribute('content', document.getElementById('intro').textContent.slice(0, 158));
     document.getElementById('fill').textContent = '';
     document.getElementById('pdf').href = 'pdf/' + name + '.pdf';
-    document.getElementById('answers').href = 'https://celltuition.com/answers#year-' + String(S.year).replace(/D/g, '');
+    document.getElementById('answers').href = 'https://celltuition.com/answers#year-' + String(S.year).replace(/\D/g, '');
     frame.contentDocument.body.style.zoom = Math.min(1, (frame.clientWidth - 24) / 830);
     frame.style.height = Math.min(4000, frame.contentDocument.documentElement.scrollHeight * Math.min(1, (frame.clientWidth - 24) / 830) + 30) + 'px';
   }
