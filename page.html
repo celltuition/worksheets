@@ -253,6 +253,46 @@
   .cts-legal a:hover { color: var(--gold-2); }
   @media (max-width: 1000px) { .cts-cols { grid-template-columns: 1fr 1fr 1fr; } .cts-fbrand { grid-column: 1 / -1; } }
   @media (max-width: 600px) { .cts-cols { grid-template-columns: 1fr 1fr; gap: 28px 20px; } .cts-fbrand, .cts-contact-col { grid-column: 1 / -1; } .cts-footer-in { padding-top: 40px; } .cts-legal { flex-direction: column; align-items: flex-start; } .cts-legal a { margin: 0 16px 0 0; } }
+  /* ---------- Store pages (a product, the cart, the "Added to cart" box): the site's fonts and colours ----------
+     These pages are built by Squarespace from its own template, so they show the old site styles unless told otherwise. */
+  body.collection-type-products .product-detail, body.collection-type-products .product-detail *,
+  .cart-container, .cart-container *, .sqs-widgets-confirmation, .sqs-widgets-confirmation * {
+    font-family: "Inter","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif !important; }
+  body.collection-type-products #sections, body.collection-type-products .page-section, body.collection-type-products .section-background,
+  body.collection-type-products .product-detail-section { background: #f5f7fb !important; }
+  body.collection-type-products, body:has(.cart-container) { background: #f5f7fb !important; }
+  body.collection-type-products .product-detail { max-width: 1180px; margin: 0 auto; padding: 28px 20px 72px; color: #0b1f3a; }
+  body.collection-type-products .product-nav, body.collection-type-products .product-nav a { font-size: 13px; color: #5b6b82 !important; }
+  body.collection-type-products .product-title { font-size: clamp(28px, 3.4vw, 40px); font-weight: 900; line-height: 1.1; letter-spacing: -.02em; color: #0b1f3a !important; margin: 10px 0 14px; }
+  body.collection-type-products .product-price { color: #0b1f3a !important; }
+  body.collection-type-products .product-price .sale-price { font-size: 32px; font-weight: 900; }
+  body.collection-type-products .product-price .original-price { font-size: 18px; font-weight: 700; color: #5b6b82 !important; }
+  body.collection-type-products .product-description, body.collection-type-products .product-description * { font-size: 16.5px; line-height: 1.6; color: #11233f !important; }
+  body.collection-type-products .sqs-add-to-cart-button, .cart-checkout-button {
+    background: #e7b53c !important; color: #0b1f3a !important; border: 0 !important; border-radius: 12px !important; padding: 16px 26px !important;
+    font-weight: 800 !important; font-size: 16px !important; letter-spacing: 0 !important; box-shadow: 0 8px 24px rgba(11,31,58,.10); }
+  body.collection-type-products .sqs-add-to-cart-button:hover, .cart-checkout-button:hover { background: #f4cf72 !important; }
+  body.collection-type-products .sqs-add-to-cart-button * , .cart-checkout-button * { color: #0b1f3a !important; }
+  body.collection-type-products .product-gallery:not(:has(img)) { display: none; }
+  body.collection-type-products .product-content-wrapper:has(.product-gallery:not(:has(img))) { display: block; max-width: 680px; }
+  /* The cart page */
+  .cart-container { max-width: 1180px; margin: 0 auto; padding: 28px 20px 72px; color: #0b1f3a; }
+  .cart-title { font-size: 34px !important; font-weight: 900 !important; letter-spacing: -.02em; color: #0b1f3a !important; }
+  .cart-row-title, .cart-row-price, .cart-subtotal-label, .cart-subtotal-price { color: #0b1f3a !important; font-weight: 700; }
+  .cart-row-variants, .cart-row-qty, .cart-row-qty * { color: #5b6b82 !important; }
+  .cart-row-remove, .cart-row-remove * { color: #5b6b82 !important; }
+  /* The "Added to cart" box */
+  .sqs-widgets-confirmation .sqs-widgets-confirmation-content { background: #fff !important; color: #0b1f3a !important; border-radius: 16px !important; box-shadow: 0 20px 60px rgba(11,31,58,.25) !important; }
+  .sqs-widgets-confirmation .sqs-widgets-confirmation-content * { color: #0b1f3a !important; }
+  .sqs-widgets-confirmation .confirmation-button { border-radius: 10px !important; font-weight: 800 !important; }
+  .sqs-widgets-confirmation .confirmation-button.confirm, .sqs-widgets-confirmation .confirmation-button.checkout { background: #e7b53c !important; color: #0b1f3a !important; border: 0 !important; }
+  .sqs-widgets-confirmation .confirmation-button.no-frame { background: transparent !important; }
+  .sqs-widgets-confirmation .title { font-weight: 900 !important; font-size: 18px !important; }
+  /* The small cart button at the bottom right of store pages (it shows the number of items after Add to cart) */
+  .floating-cart, .floating-cart * { font-family: "Inter","Helvetica Neue",Arial,sans-serif !important; }
+  .floating-cart { background: #0b1f3a !important; border-radius: 16px !important; box-shadow: 0 10px 30px rgba(11,31,58,.28) !important; }
+  .floating-cart .icon-cart-quantity { background: #e7b53c !important; color: #0b1f3a !important; border-radius: 999px !important; font-weight: 800 !important; }
+  .floating-cart .sqs-cart-quantity { color: #0b1f3a !important; font-weight: 800 !important; }
 </style>
 
 <header class="cts cts-header" id="cts-header">
