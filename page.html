@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worksheet | Cell Tuition</title>
+<meta name="description" content="Free printable maths worksheet for New Zealand students, from Cell Tuition.">
+<meta name="robots" content="index, follow">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #0b1f3a; --ink: #1f6feb; --gold: #e7b53c; --paper: #f3f4f7; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Inter, system-ui, sans-serif; color: var(--navy); background: var(--paper); }
+  .site { background: #000; color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; font-weight: 800; }
+  .site nav a { color: #fff; text-decoration: none; margin-left: 22px; font-weight: 600; font-size: 14px; }
+  .site .cta { background: var(--gold); color: #000; padding: 8px 14px; border-radius: 8px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 24px 24px 60px; }
+  .crumbs { font-size: 13px; color: #5b6b82; } .crumbs a { color: #5b6b82; }
+  h1 { font-size: 34px; margin: 10px 0 6px; letter-spacing: -.01em; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 14px; }
+  .chip { background: #fff; border: 1px solid #d9dee8; border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 600; }
+  .intro { max-width: 780px; font-size: 16px; line-height: 1.55; margin: 0 0 20px; }
+  .bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; background: #fff; border: 1px solid #d9dee8; border-radius: 14px; padding: 12px 16px; margin-bottom: 18px; box-shadow: 0 6px 20px rgba(11,31,58,.06); }
+  .group { display: flex; align-items: center; gap: 6px; font-size: 13px; } .group b { margin-right: 4px; }
+  .seg { display: inline-flex; border: 1px solid var(--navy); border-radius: 8px; overflow: hidden; }
+  .seg button { border: 0; background: #fff; padding: 7px 12px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--navy); }
+  .seg button.on { background: var(--navy); color: #fff; }
+  .btn { border: 0; border-radius: 8px; padding: 9px 14px; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; background: var(--ink); color: #fff; text-decoration: none; display: inline-block; }
+  .btn.ghost { background: #fff; color: var(--navy); border: 1px solid var(--navy); }
+  .btn.gold { background: var(--gold); color: #000; }
+  .spacer { flex: 1; }
+  .frame { background: #cfd5df; border-radius: 14px; padding: 10px; }
+  iframe { width: 100%; height: 1500px; border: 0; border-radius: 10px; background: #cfd5df; }
+  .fill { font-size: 12px; color: #5b6b82; margin-top: 8px; }
+  .actions { flex-basis: 100%; display: flex; justify-content: center; gap: 12px; padding-top: 4px; border-top: 1px solid #edf0f5; margin-top: 2px; }
+  .actions .btn { min-width: 150px; text-align: center; }
+  .answers-row { text-align: center; margin: 0 0 18px; } .answers-row .btn { padding: 12px 26px; font-size: 15px; }
+  .related { margin: 0 0 22px; } .related h2 { font-size: 17px; margin: 0 0 10px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  .card { background: #fff; border: 1px solid #d9dee8; border-radius: 12px; padding: 14px; text-decoration: none; color: var(--navy); } .card small { display: block; color: #5b6b82; margin-top: 4px; font-size: 12px; }
+  label.sw { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="site"><span>Cell Tuition</span><nav><a href="#">Tutoring</a><a href="#">Free resources</a><a href="#">About</a><a href="#" class="cta">Free first lesson</a></nav></div>
+<div class="wrap">
+  <div class="crumbs"><a href="#">Free worksheets</a> › <span id="c-strand"></span> › <span id="c-title"></span></div>
+  <h1 id="title">Loading…</h1>
+  <div class="chips" id="chips"></div>
+  <p class="intro" id="intro"></p>
+  <div class="bar">
+    <div class="group"><b>Version</b><span class="seg" id="ver"><button data-v="1" class="on">1</button><button data-v="2">2</button><button data-v="">Both</button></span></div>
+    <div class="group"><b>Layout</b><span class="seg" id="lay"><button data-l="" class="on">Compact (fewer pages)</button><button data-l="space">With working space</button></span></div>
+    <label class="sw"><input type="checkbox" id="ex" checked> Worked examples page</label>
+    <label class="sw"><input type="checkbox" id="year"> Show year level</label>
+    <div class="actions">
+      <button class="btn" onclick="document.getElementById('sheet').contentWindow.print()">Print</button>
+      <a class="btn ghost" id="pdf" href="#" target="_blank">Download PDF</a>
+    </div>
+  </div>
+  <p class="answers-row"><a class="btn gold" href="#">Answers with working for this sheet</a></p>
+  <div class="related"><h2>More from this topic</h2><div class="cards" id="related"></div></div>
+  <div class="frame"><iframe id="sheet"></iframe></div>
+  <p class="fill" id="fill"></p>
+</div>
+<script>
+  var name = (/[?&]sheet=([^&]+)/.exec(location.search) || [])[1] || 'year-10-number-adding-and-subtracting-fractions';
+  var state = { v: '1', l: '', year: false, ex: true }, frame = document.getElementById('sheet');
+  function src() { var q = ['x=1']; if (state.v) q.push('v=' + state.v); if (state.l) q.push('layout=' + state.l); if (state.year) q.push('year=1'); if (!state.ex) q.push('examples=0'); return 'sheets/' + name + '.html?' + q.join('&'); }
+  document.getElementById('ex').onchange = function () { state.ex = this.checked; reload(); };
+  function reload() { frame.src = src(); }
+  function describe() {
+    var d = frame.contentDocument, S = frame.contentWindow.SHEET; if (!S) return;
+    var span = S.span ? 'Years ' + S.span[0] + ' to ' + S.span[1] : S.year, secs = S.sections.filter(function (s) { return !s.extension; }).map(function (s) { return s.title; });
+    document.title = S.title + ' worksheet | ' + span + ' ' + S.strand + ' | Cell Tuition';
+    document.getElementById('title').textContent = S.title + ' worksheet'; document.getElementById('c-title').textContent = S.title; document.getElementById('c-strand').textContent = S.strand;
+    var pages = (d.documentElement.getAttribute('data-pages') || '').split('+')[0];
+    document.getElementById('chips').innerHTML = [span, S.strand, S.calculator ? 'Calculator' : 'No calculator', '2 versions', pages + ' pages per version', 'Free to print'].map(function (c) { return '<span class="chip">' + c + '</span>'; }).join('');
+    var yearsText = S.span ? 'Year ' + S.span[0] + ' and Year ' + S.span[1] : S.year, hasEx = S.sections.some(function (s) { return s.example; });
+    document.getElementById('intro').textContent = 'A free, printable ' + S.strand.toLowerCase() + ' worksheet on ' + S.title.replace(/^Linear Graphs \d+: /, '').toLowerCase() + ' for ' + yearsText + ' students, written for the New Zealand curriculum. It works through ' + secs.length + ' sections in rising difficulty (' + secs.join('; ').toLowerCase() + '), each introduced by a short reminder of the method, and ends with an extension section for students who finish early. Two versions with different numbers come in the same file' + (hasEx ? ', with a page of worked examples to read first' : '') + '. Print it as it is, or choose the layout with ruled space for working.';
+    var m = document.querySelector('meta[name="description"]'); if (m) m.setAttribute('content', document.getElementById('intro').textContent.slice(0, 158));
+    document.getElementById('fill').textContent = '';
+    document.getElementById('pdf').href = 'pdf/' + name + '.pdf';
+    frame.contentDocument.body.style.zoom = Math.min(1, (frame.clientWidth - 24) / 830);
+    frame.style.height = Math.min(4000, frame.contentDocument.documentElement.scrollHeight * Math.min(1, (frame.clientWidth - 24) / 830) + 30) + 'px';
+  }
+  frame.addEventListener('load', function () { setTimeout(describe, 1200); setTimeout(describe, 3000); });
+  document.querySelectorAll('#ver button').forEach(function (b) { b.onclick = function () { state.v = b.dataset.v; b.parentNode.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); }); reload(); }; });
+  document.querySelectorAll('#lay button').forEach(function (b) { b.onclick = function () { state.l = b.dataset.l; b.parentNode.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); }); reload(); }; });
+  document.getElementById('year').onchange = function () { state.year = this.checked; reload(); };
+  var others = ['year-10-number-adding-and-subtracting-fractions', 'year-10-algebra-factorising-quadratics', 'year-10-algebra-linear-graphs-4-drawing-lines', 'year-10-measurement-area-of-triangles', 'year-10-geometry-angles-on-parallel-lines-harder'];
+  document.getElementById('related').innerHTML = others.filter(function (o) { return o !== name; }).map(function (o) { return '<a class="card" href="?sheet=' + o + '">' + o.replace(/^year-10-[a-z]+-/, '').replace(/-/g, ' ') + '<small>Example page</small></a>'; }).join('');
+  reload();
+</script>
+</body>
+</html>

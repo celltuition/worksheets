@@ -1,0 +1,173 @@
+/* CELL TUITION WORKSHEETS: the look of every worksheet and answer sheet.
+   Made for black and white printing: black ink on white, light grey only where it photocopies cleanly.
+   One .page is one side of A4. worksheet.js fills the pages. */
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #e6e9ee; }
+body { font-family: "Inter", "Segoe UI", Arial, sans-serif; font-size: 10.5pt; line-height: 1.35; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+p, h1, h2, ol, ul { margin: 0; padding: 0; }
+a { color: inherit; text-decoration: none; }
+
+.page { width: 210mm; height: 297mm; margin: 8mm auto; padding: 10mm 13mm 8mm; background: #fff; box-shadow: 0 4px 24px rgba(0,0,0,.2);
+  display: flex; flex-direction: column; overflow: hidden; break-after: page; page-break-after: always; }
+.page:last-child { break-after: auto; page-break-after: auto; }
+@media print { html, body { background: #fff; } .page { margin: 0; box-shadow: none; } }
+.page-body { flex: 1; min-height: 0; overflow: hidden; }
+
+/* ---------- Top of the first page ---------- */
+.head { display: flex; align-items: center; gap: 7mm; padding-bottom: 3.5mm; border-bottom: 1.6pt solid #000; }
+/* (the width is worked out from the shape of the logo, 540 by 212, so the title beside it wraps the same way before and after the picture has loaded) */
+.head .logo { flex: none; height: 17mm; width: 43.3mm; aspect-ratio: 540 / 212; display: block; }
+.head-main { flex: 1; min-width: 0; text-align: right; }
+.kicker { font-size: 9pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.head h1 { font-size: 19pt; line-height: 1.12; font-weight: 800; letter-spacing: -.01em; margin-top: 1mm; }
+.meta { display: flex; align-items: flex-end; gap: 6mm; margin: 4mm 0 1mm; font-size: 10pt; font-weight: 700; }
+.field { display: flex; align-items: flex-end; gap: 2mm; flex: 2; }
+.field.is-short { flex: 1; }
+.field i { flex: 1; border-bottom: .8pt solid #000; height: 5mm; }
+.tag { flex: none; font-size: 8.5pt; font-weight: 700; border: .8pt solid #000; border-radius: 99px; padding: .8mm 3mm; }
+/* Answer sheets say so in a black band */
+.band { margin: 4mm 0 1mm; background: #000; color: #fff; font-size: 10pt; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; text-align: center; padding: 1.6mm 3mm; border-radius: 1.5mm; }
+
+/* ---------- Top of the later pages ---------- */
+.head-small { display: flex; justify-content: space-between; align-items: baseline; gap: 6mm; padding-bottom: 2mm; border-bottom: 1.2pt solid #000; font-size: 9pt; font-weight: 700; }
+.head-small b { font-size: 11pt; font-weight: 800; }
+.head-small span { letter-spacing: .12em; text-transform: uppercase; }
+
+/* ---------- Sections ---------- */
+.sec { display: flex; align-items: center; gap: 2.5mm; margin-top: 5.5mm; }
+.sec-l { flex: none; width: 6.5mm; height: 6.5mm; border-radius: 1.6mm; background: #000; color: #fff; font-size: 11pt; font-weight: 800; display: grid; place-items: center; }
+.sec-t { flex: none; font-size: 12pt; font-weight: 800; }
+.sec-rule { flex: 1; border-bottom: .8pt solid #000; transform: translateY(.3mm); }
+.sec-tag { flex: none; font-size: 8pt; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #333; }
+.hint { display: flex; align-items: center; gap: 2mm; margin-top: 2.2mm; padding: 1.3mm 3mm; background: #f0f0f0; border-left: 2.2pt solid #000; font-size: 9.5pt; }
+.hint svg { flex: none; width: 4mm; height: 4mm; }
+.hint b { font-weight: 800; }
+
+/* ---------- Questions ---------- */
+.q { display: flex; gap: 1mm; margin-top: 3.2mm; }
+.q-n { flex: none; width: 7.5mm; font-weight: 800; }
+.q-main { flex: 1; min-width: 0; }
+.q-stem + .parts { margin-top: 2mm; }
+.parts { display: grid; gap: 2.6mm 6mm; list-style: none; }
+.cols-1 { grid-template-columns: 1fr; } .cols-2 { grid-template-columns: repeat(2, 1fr); }
+.cols-3 { grid-template-columns: repeat(3, 1fr); } .cols-4 { grid-template-columns: repeat(4, 1fr); }
+.parts li { display: flex; align-items: baseline; gap: 1.6mm; min-width: 0; }
+.p-l { flex: none; font-weight: 700; }
+.p-t { min-width: 0; }
+/* A short answer written on the sheet: the question stays on one line and the line for the answer takes the rest */
+.has-blanks .p-t { white-space: nowrap; }
+.blank { flex: 1; min-width: 6mm; border-bottom: .8pt solid #000; height: 1em; }
+.katex { font-size: 1.02em; }
+
+/* ---------- Answer sheets ---------- */
+/* Answer sheets are set a little tighter than worksheets, to keep the page count down */
+.answers .sec { margin-top: 4.4mm; }
+.answers .q { margin-top: 2.6mm; }
+.answers .parts { gap: 2.1mm 5mm; }
+.answers .parts li { align-items: flex-start; }
+.work { display: flex; flex-direction: column; gap: 1.1mm; min-width: 0; }
+.ans { font-weight: 800; }
+.answers .work > span { white-space: nowrap; }
+.answers .work > span.is-words { white-space: normal; }
+.q-cols { column-gap: 8mm; }
+.q-cols .q { break-inside: avoid; margin-top: 0; padding-top: 3.2mm; }
+.answers .q-stem { font-weight: 700; color: #333; font-size: 9.5pt; }
+
+/* ---------- Foot of every page ---------- */
+.foot { margin-top: 3mm; padding-top: 2mm; border-top: .8pt solid #000; font-size: 8pt; line-height: 1.3; }
+.foot-row { display: flex; justify-content: space-between; gap: 4mm; font-size: 7.5pt; white-space: nowrap; }
+.foot-row b { font-weight: 800; }
+.foot-legal { margin-top: .8mm; font-size: 6.8pt; color: #333; }
+
+/* ---------- Version, key words, difficulty dots, "Watch out" and the extension star ---------- */
+.tag.is-version { background: #000; color: #fff; }
+.words { margin-top: 2.6mm; font-size: 9.5pt; }
+.words b { font-size: 8pt; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin-right: 2.5mm; }
+.words i { font-style: normal; font-weight: 800; margin: 0 .6mm; }
+.dots { flex: none; display: flex; gap: .9mm; margin-left: .6mm; }
+.dots i { width: 2.3mm; height: 2.3mm; border-radius: 50%; border: .9pt solid #000; }
+.dots i.on { background: #000; }
+.sec-l.is-star svg { width: 4.6mm; height: 4.6mm; display: block; }
+.hint.is-watch { background: #fff; border: .8pt solid #000; border-left-width: 2.2pt; padding-top: 1.1mm; padding-bottom: 1.1mm; }
+.page.is-blank { align-items: center; justify-content: center; }
+.page.is-blank p { font-size: 9pt; color: #666; }
+
+/* ---------- Drawings ---------- */
+.fig { display: block; line-height: 0; }
+.fig svg { display: block; max-width: 100%; height: auto; font-family: inherit; }
+.parts li.has-fig { align-items: flex-start; }
+.fig-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1.5mm; }
+.fig-line { display: flex; align-items: baseline; gap: 1.6mm; }
+.fig-line .blank { flex: none; width: 14mm; min-width: 0; }
+.parts li.has-fig .fig-col { align-items: flex-start; }
+.q-side { display: flex; align-items: flex-start; justify-content: space-between; gap: 6mm; }
+.q-side .q-stem { flex: 1; min-width: 0; }
+.q-side .fig { flex: none; }
+
+/* A sheet whose tools found a problem says so in red, so it cannot be used by mistake */
+.problems { border: 2pt solid #c00; color: #c00; padding: 2mm 3mm; margin-bottom: 3mm; font-size: 9.5pt; }
+
+/* A row of parts that is still too wide at one column is allowed to wrap (see autoFit in worksheet.js) */
+.can-wrap .p-t, .answers .can-wrap .work > span { white-space: normal; }
+.fig-line .blank { width: 10mm; }
+.work .note { font-size: 9.5pt; white-space: normal; }
+
+/* ---------- Tables, and drawings that belong to a whole question ---------- */
+.tab { border-collapse: collapse; font-size: 10pt; }
+.tab th, .tab td { border: .8pt solid #000; min-width: 10mm; height: 7mm; padding: .6mm 2.2mm; text-align: center; font-weight: 400; }
+.tab th { background: #f0f0f0; font-weight: 700; }
+.tab td.is-new, .tab th.is-new { font-weight: 800; }
+.q-wide { margin: 2mm 0 2.4mm; display: flex; gap: 6mm; align-items: flex-start; flex-wrap: wrap; }
+.q-side-main { flex: 1; min-width: 0; }
+.q-side-main .q-stem + .parts { margin-top: 2mm; }
+.q-side .tab { flex: none; }
+.fig-col .tab { margin: .5mm 0; }
+
+.p-lead { margin-left: 4mm; }
+.parts li br { display: block; }
+.long-blanks .fig-line .blank { width: 32mm; }
+.is-more .q { margin-top: 2.6mm; }
+.answers .is-more .q { margin-top: 2.1mm; }
+.tab th { white-space: nowrap; }
+
+/* ---- Added 15 October 2026: key words in te reo Māori, the QR code, and the working-space layout (?layout=space) ---- */
+.words { white-space: nowrap; overflow: hidden; }
+.words .kw { white-space: nowrap; }
+.words .reo { font-style: italic; font-weight: 400; color: #333; }
+.words .reo::before { content: '('; } .words .reo::after { content: ')'; }
+.qr { flex: none; display: flex; align-items: center; gap: 2mm; margin-left: auto; }
+.qr-box { display: block; width: 13mm; height: 13mm; }
+.qr-box svg { display: block; width: 13mm; height: 13mm; }
+.qr-cap { font-size: 6.5pt; font-weight: 600; line-height: 1.2; color: #333; }
+.meta { flex-wrap: nowrap; }
+.space { display: block; position: relative; margin-top: 1.5mm; }
+.space.is-q { margin-top: 2mm; }
+.parts li.spaced { display: block; }
+.parts li.spaced .p-t { display: inline; white-space: normal; }
+.spaced .parts li.has-fig .space { width: 100%; }
+.spaced .parts.cols-3, .spaced .parts.cols-4 { column-count: 2 !important; }
+.spaced .parts li { break-inside: avoid; }
+.parts li.spaced .p-l { margin-right: 1.6mm; }
+.space .ln { display: block; height: 8mm; border-bottom: .5pt solid #b8b8b8; }
+.space.is-q .ln:first-child { margin-top: 1mm; }
+.mth { white-space: nowrap; }
+.page.examples .band { margin-top: 3mm; }
+.ex { padding: 2.2mm 0 2.6mm; border-bottom: .5pt solid #c8c8c8; }
+.ex:last-child { border-bottom: 0; }
+.ex-head { display: flex; align-items: center; gap: 2.5mm; margin-bottom: 1mm; }
+.ex-hint { font-size: 9pt; color: #333; margin: 0 0 1.5mm 9mm; }
+.ex-body { display: flex; gap: 5mm; align-items: flex-start; margin-left: 9mm; }
+.ex-fig { flex: none; }
+.ex-main { flex: 1; min-width: 0; }
+.ex-q { font-size: 10pt; margin: 0 0 1mm; }
+.ex-main .work { display: flex; flex-direction: column; gap: .6mm; }
+.ex-main .work > span { font-size: 10pt; }
+.ex-main .note { font-size: 9pt; color: #333; }
+.page.examples .page-body { column-count: 2; column-gap: 7mm; }
+.page.examples .ex { break-inside: avoid; }
+.page.examples .ex-body { margin-left: 0; }
+.page.examples .ex-hint { margin-left: 0; }
+.page.examples.few .page-body { column-count: 1; }
+.page.examples.few .ex-body { gap: 8mm; }
+.page.examples.few .ex-fig svg { transform-origin: left top; }
