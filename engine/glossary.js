@@ -1,7 +1,7 @@
 /* CELL TUITION WORKSHEETS: te reo Māori for the key words printed on a sheet.
    The English key word is on the left, the te reo Māori term on the right. The engine prints the te reo term after the
-   English one in the Key words line. ONLY terms that have been checked by a te reo Māori teacher belong here with
-   ok: true; a term with ok: true is a proposal and is NOT printed. Source for every proposal: Paekupu, the Ministry of
+   English one in the Key words line. Every term is switched on (ok: true) since 15 October 2026 on Marcel's decision; the school's te reo teacher
+   is checking the list and any correction comes back as an edit here. A term with ok: false is not printed. Source for every proposal: Paekupu, the Ministry of
    Education's dictionary of curriculum terms (paekupu.co.nz, Pāngarau), and the Te Reo Pāngarau glossary on nzmaths.
    The checking list for the teacher is "Te reo Māori maths glossary for checking.xlsx" in the project folder. */
 window.GLOSSARY = {
