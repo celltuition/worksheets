@@ -421,6 +421,10 @@
         '<div class="ex-body">' + (fig ? '<div class="ex-fig">' + figHtml(fig, e.ascale || 0.3) + '</div>' : '') + '<div class="ex-main">' + words + (e.table ? tableHtml(e.atable || e.table) : '') + workHtml(e) + '</div></div></div>'));
     });
     fitFigures(p);
+    // When the examples do not fit the page (a third column, or past the bottom), the page is scaled down a step at a
+    // time until they do, so no example is ever cut off
+    var over = function () { var r = body.getBoundingClientRect(); return [].some.call(body.querySelectorAll('.ex'), function (e) { var b = e.getBoundingClientRect(); return b.right > r.right + 1 || b.bottom > r.bottom + 1; }); };
+    for (var z = 1; over() && z > 0.55; ) { z = Math.round((z - 0.05) * 100) / 100; body.style.zoom = z; }
     // Printed on both sides, the first version must still start on a new sheet of paper
     if (VERSIONS.length > 1 || true) document.body.appendChild(el('<section class="page is-blank"><p>This page is blank so that the worksheet starts on a new sheet of paper.</p></section>'));
   }
